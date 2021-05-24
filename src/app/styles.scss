@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.dark-mod{
+    color: #fff;
+    background-color: #343434;
+}
+.flex{
+    display: flex; 
+    & .between{
+        justify-content: space-between;
+    }
+}
+
+h1,h2,h3,p{
+    margin: 0;
+}
