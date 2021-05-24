@@ -1,0 +1,33 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
+.main-nav{
+    padding: 0 10px 10px;
+    div{
+        width: 50%;
+        &:nth-child(2){
+            justify-content: flex-end;
+        }
+    }
+    i{
+        color: #fff;
+        transition: 1s;
+        &:hover{
+            cursor: pointer;
+            color: rgb(238, 238, 238);
+            transition: 1s;
+        }
+    }
+}
+
+.paging{
+    & *:not(:last-child){
+        margin-right: 1rem;
+    }
+    h1 {
+        min-width:max-content;
+        font-family: 'Roboto Condensed', sans-serif;
+        font-weight:500;
+    }
+    & a.flex {
+        align-items: center;
+    }
+}
