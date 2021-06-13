@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,EventEmitter,Output} from '@angular/core';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { SeriesService } from 'src/app/services/series.service';
 
@@ -15,16 +15,17 @@ export class NavbarComponent implements OnInit {
   subscription;
   series:any=null;
   constructor(private http:HttpClient,private calendarService:CalendarService,private seriesService:SeriesService) { }
-
+  @Output() toChangeCalendar = new EventEmitter()
+  @Output() addingSeries = new EventEmitter()
   ngOnInit(): void {
     
   }
   changeCalendar(year,month){
-    this.calendarService.changeDate(year,month)
+    // this.calendarService.changeDate(year,month)
+    this.toChangeCalendar.emit({year,month})
   }
-  
   addSeries(){
-    
+    this.addingSeries.emit()
   }
   get monthToShow(){
     this.calendar$=this.calendarService.calendar$
@@ -46,13 +47,5 @@ export class NavbarComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe()
   }
-  // showConfig() {
-    // this.seriesService.getConfig()
-    //   .subscribe((data: Config) => this.config = {
-    //       heroesUrl: data.heroesUrl,
-    //       textfile:  data.textfile,
-    //       date: data.date,
-    //   });
-  // }
 
 }

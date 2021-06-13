@@ -20,6 +20,7 @@ export class SeriesService {
         pics:[],
         episodes:[]
     };
+    defaultSeries;
     constructor(private http: HttpClient,private calendarService:CalendarService) { }
 
     private handleError(error: HttpErrorResponse) {
@@ -45,10 +46,21 @@ export class SeriesService {
             catchError(this.handleError)
         );
     }
-    public addDefaultSeriesToCalendar(seriesInfo){
-        this._arrangeSeriesDefault(seriesInfo)
-        this.calendarService.addSeiresToCalendar(this.seriesDefault)
-
+    public addDefaultSeriesToCalendar(){
+        // this.seriesService.get('https://www.episodate.com/api/show-details?q=lucifer')
+        // this.seriesService.get('https://www.episodate.com/api/show-details?q=Katla') 17/6
+        this.get('https://www.episodate.com/api/show-details?q=Elite')
+            .subscribe(
+            data => {
+                console.log(data.tvShow);
+                this.defaultSeries=data.tvShow
+                this._arrangeSeriesDefault(data.tvShow)
+                this.calendarService.addSeiresToCalendar(this.seriesDefault)
+             },
+            err => {
+            console.log(err);
+            }
+      );
     }
     private _arrangeSeriesDefault(seriesInfo){
         this.seriesDefault.name=seriesInfo.name
@@ -56,6 +68,6 @@ export class SeriesService {
         this.seriesDefault.genres=seriesInfo.genres
         this.seriesDefault.pics=seriesInfo.pictures
         this.seriesDefault.episodes=seriesInfo.episodes
-        // console.log(this.seriesDefault)
+        console.log(this.seriesDefault)
     }
 }

@@ -7,21 +7,25 @@ import { MainContentComponent } from './cmps/main-content/main-content.component
 import { NavbarComponent } from './cmps/navbar/navbar.component';
 import { CalendarComponent } from './cmps/calendar/calendar.component';
 import { DailyDetailsComponent } from './cmps/daily-details/daily-details.component';
-import { MatSliderModule } from '@angular/material/slider';
-
+import { AddSeriesComponent } from './cmps/add-series/add-series.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     MainContentComponent,
     NavbarComponent,
     CalendarComponent,
-    DailyDetailsComponent
+    DailyDetailsComponent,
+    AddSeriesComponent,
   ],
+ 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatSliderModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

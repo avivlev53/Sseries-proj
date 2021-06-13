@@ -1,11 +1,27 @@
-<table style="width:100%" class="calendar">
+<div class="content-warp">
+  <img class="content-bg-img" [src]="backgroundUrl">
+  <table *ngIf="calendar && calendar.length" style="width:100%" class="calendar">
     <tr>
       <th *ngFor="let day of days">
-            {{day}}
+        {{day}}
       </th>
-     
+
     </tr>
     <tr *ngFor="let week of calendar">
-      <td class="day" [class]="{today:(day.isToday && day.fullDate.monthNum===currMonth && day.fullDate.yearNum===currYear),notThisMonth:!day.isCurrMonth}" *ngFor="let day of week "> <h3>{{day.fullDate.dayNum}}</h3> </td>
+      <td class="day"
+        [class]="{today:(day.isToday && day.fullDate.monthNum===currMonth && day.fullDate.yearNum===currYear),notThisMonth:!day.isCurrMonth}"
+        *ngFor="let day of week ">
+        <h3>{{day.fullDate.dayNum}}</h3>
+        <ul *ngIf="day.tvShows.length && day.tvShows.length>=3">
+          <li *ngFor="let tvShow of day.tvShows"><span>{{tvShow.name}}</span></li>
+        </ul>
+        <ul *ngIf="!day.tvShows.length ||day.tvShows.length<3">
+          <li *ngFor="let tvShow of day.tvShows"><span>{{tvShow.name}}</span></li>
+          <li> </li>
+          <li> </li>
+          <li> </li>
+        </ul>
+      </td>
     </tr>
   </table>
+</div>

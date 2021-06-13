@@ -39,18 +39,52 @@ export class CalendarService {
     this._calendar$.next(JSON.parse(JSON.stringify(calendar)))
   }
   public addSeiresToCalendar(series){
+    const{name,description,pics}=series
     let calendar = this._calendar$.getValue();
+    const thisMonthSeries=[]
     console.log('calendarDates',this.calendarDates)
     if (series.episodes ||series.episodes.length){
-      // console.log(series.episodes.length)
       for (let i=0;i<series.episodes.length;i++){
-        let year = series.episodes[i].air_date.substring(0,4)
-        if (year !==this.calendarDates[0].yearNum) return
-        else {console.log(series.episodes[i])}
-        console.log(series.episodes[i])
+        let year = parseInt(series.episodes[i].air_date.substring(0,4))
+        let month = parseInt(series.episodes[i].air_date.substring(5,7))
+        let day = parseInt(series.episodes[i].air_date.substring(8,10))
+        if (year !==this.calendarDates[6].yearNum || month !==this.calendarDates[6].monthNum+1) continue
+        else {
+          thisMonthSeries.push({yearNum:year,monthNum:month-1,dayNum:day,episodeInfo:series.episodes[i],name,description,pics})
+        }
+      }
+      for (let i =0; i<calendar.length;i++){
+        let week=calendar[i]
+        for (let j=0;j<calendar[0].length;j++){
+          let day=week[j]
+          for(let k=0;k<thisMonthSeries.length;k++){
+            if (day.fullDate.monthNum===thisMonthSeries[k].monthNum && day.fullDate.dayNum===thisMonthSeries[k].dayNum){
+              day.tvShows.push(thisMonthSeries[k])
+            }
+          }
+        }
       }
     }
-    console.log('series: ',series)
+    this._calendar$.next(JSON.parse(JSON.stringify(calendar)))
+    console.log('calendar: ',calendar)
+    console.log(' thisMonthSeries',thisMonthSeries)
+  }
+  public setBackgroundImg(){
+    console.log("00")
+    let calendar = this._calendar$.getValue();
+    for (let i =0; i<calendar.length;i++){
+      let week=calendar[i]
+      for (let j=0;j<calendar[0].length;j++){
+        let day=week[j]
+        if (day.isToday && day.tvShows.length){
+          console.log("22")
+          return day.tvShows[0].pics[0]
+        }else {
+          // console.log("111")
+          // return 'https://static.episodate.com/images/episode/63757-387.jpg'
+        }
+      }
+    }
   }
   private _creatMat(year, month, day = 0) {
     let mat = []
