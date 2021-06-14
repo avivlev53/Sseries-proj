@@ -24,7 +24,6 @@ export class CalendarService {
     this.addMonth += month
 
     this.query(this.year, this.month, 0, this.addYear, this.addMonth)
-    console.log("change date", this.addYear, year, this.addMonth, month)
   }
   public query(year, month, day = 0, addYear = 0, addMonth = 0) {
     this.year = year
@@ -35,7 +34,6 @@ export class CalendarService {
       day = new Date().getDate()
     }
     calendar = this._creatMat(year + addYear, month + addMonth, day)
-    console.log('loadmat', calendar)
     this._calendar$.next(JSON.parse(JSON.stringify(calendar)))
   }
   public addSeiresToCalendar(series){
@@ -66,8 +64,6 @@ export class CalendarService {
       }
     }
     this._calendar$.next(JSON.parse(JSON.stringify(calendar)))
-    console.log('calendar: ',calendar)
-    console.log(' thisMonthSeries',thisMonthSeries)
   }
   public setBackgroundImg(){
     console.log("00")
@@ -77,11 +73,9 @@ export class CalendarService {
       for (let j=0;j<calendar[0].length;j++){
         let day=week[j]
         if (day.isToday && day.tvShows.length){
-          console.log("22")
           return day.tvShows[0].pics[0]
         }else {
-          // console.log("111")
-          // return 'https://static.episodate.com/images/episode/63757-387.jpg'
+          return 'https://static.episodate.com/images/episode/63757-387.jpg'
         }
       }
     }
@@ -143,8 +137,6 @@ export class CalendarService {
         mat[i][j] = dayDetails;
       }
     }
-
-    console.log(fixedYear, fixedMonth)
     console.table(mat)
     return mat
   }

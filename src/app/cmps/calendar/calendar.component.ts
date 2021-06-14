@@ -18,7 +18,6 @@ export class CalendarComponent implements OnInit {
   backgroundUrl ;
 
   ngOnInit(): void {
-    // this.backgroundUrl=`background-image: url(${this.calendarService.setBackgroundImg()}); background-size: cover;background-position: center;background-repeat: no-repeat;`
     this.backgroundUrl=this.calendarService.setBackgroundImg()
   }
 }
