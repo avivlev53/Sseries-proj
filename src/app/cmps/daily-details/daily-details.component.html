@@ -1,1 +1,29 @@
-<p>daily-details works!</p>
+<div>
+    <ul *ngIf="afterDelete.length || day.tvShows.length">
+        <li *ngFor="let tvShow of day.tvShows; index as i" (click)="openNotes(i)" >
+            <div class="content flex">
+                <div class="episode-info"><span class="episode-info-name">{{tvShow.name}}</span> <div class="episode-num"> <span> S{{tvShow.episodeInfo.season}} E{{tvShow.episodeInfo.episode}}</span></div>  {{tvShow.episodeInfo.name}}
+                </div>
+                <div class="icons flex">
+                    <i (click)="deleteEpisode(i,tvShow)" click-stop-propagation
+                    class="fas fa-times"></i> 
+                    <i (click)="addNotes(i,tvShow)" class="fas fa-edit" click-stop-propagation></i> 
+                    <i (click)="lovedEpisode(i,tvShow.name,tvShow.episodeInfo.season,tvShow.episodeInfo.episode)"
+                     [class]="{star:stared[i]}" click-stop-propagation class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="tvShow-time">
+                {{timeOfTheShow(tvShow)}}
+            </div>
+            <div *ngIf="isOpenNotes.isOpen &&isOpenNotes.index===i" class="tvShow-notes scale-in-ver-top">
+                <ul>
+                    <li >
+                        <h2>{{tvShow.episodeInfo.name}}</h2>
+                        <p>{{tvShow.description}} </p>
+                    </li>
+                    <li *ngFor="let note of tvShow.notes">{{note}} </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

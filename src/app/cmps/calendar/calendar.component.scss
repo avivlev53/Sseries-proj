@@ -1,3 +1,11 @@
+table{
+  table-layout: fixed;
+  width:100%;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+
 table,
 th,
 td {
@@ -39,6 +47,9 @@ td{
     li:nth-child(1),li:nth-child(2),li:nth-child(3){
       display: block;
       min-height: 20px;
+      white-space: nowrap;
+      overflow: hidden; 
+      text-overflow: ellipsis;
      
       & span {
        border-left:3px solid rgb(131, 226, 250);
@@ -73,5 +84,16 @@ td{
   & h3{
     font-weight: 500;
     margin-bottom: 5px;
+  }
+  &.clicked{
+    & h3{
+      width: max-content;
+      padding: 2px 5px 2px;
+      background-color: rgba(33, 202, 146, 0.514);
+      border-radius: 20%;
+      line-height: 1.1;
+      text-align: center;
+      color: rgb(255, 254, 254);
+    }
   }
 }

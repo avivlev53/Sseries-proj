@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Editing an Episode</h1>
+<h3>Series Name: <span>{{data.seriesName}}</span></h3>
+<h3>Episode Name: <span>{{data.episodeName}}</span> </h3>
+<h3>From season {{data.seasonNum}} episode {{data.episodeNum}} </h3>
+<form #form="ngForm"(ngSubmit)="submitForm(form.value)" class="example-form">
+    <mat-form-field class="example-full-width" hideRequiredMarker>
+        <mat-label>Add note to episode</mat-label>
+        <input  matInput [ngModel]="episodeNote" required name="note" placeholder="Add a note if you like">
+    </mat-form-field>
+    <div mat-dialog-actions>
+        <button type="submit" mat-stroked-button [mat-dialog-close]="form.value" color="primary" >Yes, Edit</button>
+        <button mat-stroked-button mat-dialog-close>Close</button>
+    </div>
+</form>

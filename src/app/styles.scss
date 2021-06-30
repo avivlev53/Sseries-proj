@@ -5,7 +5,7 @@
 }
 .flex{
     display: flex; 
-    & .between{
+    &.between{
         justify-content: space-between;
     }
 }

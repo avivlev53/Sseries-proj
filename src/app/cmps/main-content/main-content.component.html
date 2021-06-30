@@ -1,6 +1,4 @@
-<div class="main-content dark-mod">
-    <app-navbar (toChangeCalendar)="updateCalendar($event)" (addingSeries)="addingSeries()"></app-navbar>
+<div class="main-content dark-mod" >
+    <app-navbar (toChangeCalendar)="updateCalendar($event)" ></app-navbar>
     <app-calendar [calendar]="calendar"></app-calendar>
-    <app-daily-details></app-daily-details>
-    <app-add-series *ngIf="toggleBtn"></app-add-series>
 </div>

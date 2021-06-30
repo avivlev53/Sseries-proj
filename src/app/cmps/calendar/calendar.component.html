@@ -1,16 +1,16 @@
 <div class="content-warp">
-  <img class="content-bg-img" [src]="backgroundUrl">
-  <table *ngIf="calendar && calendar.length" style="width:100%" class="calendar">
+  <!-- <img class="content-bg-img" [src]="backgroundUrl" > -->
+  <table *ngIf="calendar && calendar.length && backgroundUrl" class="calendar" [style]="backgroundUrl">
     <tr>
       <th *ngFor="let day of days">
         {{day}}
       </th>
 
     </tr>
-    <tr *ngFor="let week of calendar">
-      <td class="day"
-        [class]="{today:(day.isToday && day.fullDate.monthNum===currMonth && day.fullDate.yearNum===currYear),notThisMonth:!day.isCurrMonth}"
-        *ngFor="let day of week ">
+    <tr *ngFor="let week of calendar ;index as i">
+      <td class="day" (click)="showDayDetails(day,i,j)"
+        [class]="{clicked:(clickedDay.i===i&&clickedDay.j===j) ,today:(day.isToday && day.fullDate.monthNum===currMonth && day.fullDate.yearNum===currYear),notThisMonth:!day.isCurrMonth}"
+        *ngFor="let day of week ;index as j">
         <h3>{{day.fullDate.dayNum}}</h3>
         <ul *ngIf="day.tvShows.length && day.tvShows.length>=3">
           <li *ngFor="let tvShow of day.tvShows"><span>{{tvShow.name}}</span></li>
@@ -24,4 +24,8 @@
       </td>
     </tr>
   </table>
+  <div >
+    <app-daily-details   *ngIf="dayInfo" [day]="dayInfo">
+    </app-daily-details>
+  </div>
 </div>

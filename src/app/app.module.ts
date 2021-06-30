@@ -10,6 +10,19 @@ import { DailyDetailsComponent } from './cmps/daily-details/daily-details.compon
 import { AddSeriesComponent } from './cmps/add-series/add-series.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorMsgComponent } from './cmps/error-msg/error-msg.component';
+import { DeleteEpisodeComponent } from './cmps/delete-episode/delete-episode.component';
+import { ClickStopPropagation } from './directives/click-stop-propagation.directive';
+import { EditTvShowEpisodeComponent } from './cmps/edit-tv-show-episode/edit-tv-show-episode.component';
+import {MatSelectModule} from '@angular/material/select';
+import { DeleteSeriesComponent } from './cmps/delete-series/delete-series.component';
+import { NgEventBus } from 'ng-event-bus';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +31,12 @@ import {MatDialogModule} from '@angular/material/dialog';
     CalendarComponent,
     DailyDetailsComponent,
     AddSeriesComponent,
+    ErrorMsgComponent,
+    DeleteEpisodeComponent,
+    ClickStopPropagation,
+    EditTvShowEpisodeComponent,
+    DeleteSeriesComponent,
+    
   ],
  
   imports: [
@@ -25,9 +44,17 @@ import {MatDialogModule} from '@angular/material/dialog';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [
+    NgEventBus,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,13 @@
 <div class="adding-series">
-<h3> hello</h3>
-
+    <h1 mat-dialog-title>Add series to your calendar</h1>
+    <form #form="ngForm"(ngSubmit)="submitForm(form.value)" class="example-form">
+        <mat-form-field class="example-full-width" hideRequiredMarker>
+            <mat-label>Choose series</mat-label>
+            <input  matInput [ngModel]="seriesName" required name="seriesName" placeholder="Write the name of a series">
+        </mat-form-field>
+        <div mat-dialog-actions>
+            <button type="submit" mat-stroked-button mat-stroked-button  color="primary" >Add</button>
+            <button mat-stroked-button mat-dialog-close>Close</button>
+        </div>
+    </form>
 </div>

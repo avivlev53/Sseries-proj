@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Befor Delete msg</h1>
+<!-- <h2 >Are you sure you want to delete this episode?</h2> -->
+<form #form="ngForm"(ngSubmit)="submitForm(seriesToDelete.value)" class="example-form">
+<mat-form-field appearance="fill">
+    <mat-label>Series You Want to Delete</mat-label>
+    <mat-select [formControl]="seriesToDelete" multiple > 
+      <mat-select-trigger>
+        {{seriesToDelete.value ? seriesToDelete.value[0] : ''}}
+        <span *ngIf="seriesToDelete.value?.length > 1" class="example-additional-selection">
+          (+{{seriesToDelete.value.length - 1}} {{seriesToDelete.value?.length === 2 ? 'other' : 'others'}})
+        </span>
+      </mat-select-trigger>
+      <mat-option *ngFor="let series of seriesList" [value]="series">{{series}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-stroked-button type="submit" color="warn" [mat-dialog-close]="seriesToDelete.value">Yes, delete now !</button>
+  <button mat-stroked-button mat-dialog-close>No, I regret</button>
+</div>
+</form>
