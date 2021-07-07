@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
-import { catchError, map } from "rxjs/operators";
+// import { Observable, throwError } from "rxjs";
+// import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
+// import { catchError, map } from "rxjs/operators";
 import { CalendarService } from "./calendar.service";
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorMsgComponent } from "../cmps/error-msg/error-msg.component";
 import { UtilService } from '../services/util-service'
+import{HttpService} from '../services/http.service'
 // Set the http options
-const httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": "c31z" })
-};
+// const httpOptions = {
+//     headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": "c31z" })
+// };
 
 @Injectable({
     providedIn: "root"
@@ -25,34 +26,34 @@ export class SeriesService {
     };
     newSeries;
     deletedEpisode=[]
-    constructor(private http: HttpClient, private calendarService: CalendarService, public dialog: MatDialog, public utilService: UtilService) { }
+    constructor(public httpService:HttpService, private calendarService: CalendarService, public dialog: MatDialog, public utilService: UtilService) { }
 
-    private handleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error("An error occurred:", error.error.message);
-        } else {
-            // The backend returned an unsuccessful response code. The response body may contain clues as to what went wrong,
-            console.error(
-                `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-            );
-        }
-        // return an observable with a user-facing error message
-        return throwError(error);
-    }
-    private extractData(res: Response) {
-        let body = res;
-        return body || {};
-    }
-    public get(url: string): Observable<any> {
-        return this.http.get(url, httpOptions).pipe(
-            map(this.extractData),
-            catchError(this.handleError)
-        );
-    }
+    // private handleError(error: HttpErrorResponse) {
+    //     if (error.error instanceof ErrorEvent) {
+    //         // A client-side or network error occurred. Handle it accordingly.
+    //         console.error("An error occurred:", error.error.message);
+    //     } else {
+    //         // The backend returned an unsuccessful response code. The response body may contain clues as to what went wrong,
+    //         console.error(
+    //             `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+    //         );
+    //     }
+    //     // return an observable with a user-facing error message
+    //     return throwError(error);
+    // }
+    // private extractData(res: Response) {
+    //     let body = res;
+    //     return body || {};
+    // }
+    // public get(url: string): Observable<any> {
+    //     return this.http.get(url, httpOptions).pipe(
+    //         map(this.extractData),
+    //         catchError(this.handleError)
+    //     );
+    // }
     public addSeriesToCalendar({ seriesName }) {
         const fixedSeriesName = seriesName.split(' ').join('-')
-        this.get(`https://www.episodate.com/api/show-details?q=${fixedSeriesName}`)
+        this.httpService.get(`https://www.episodate.com/api/show-details?q=${fixedSeriesName}`)
             .subscribe(
                 data => {
                     this.newSeries = data.tvShow
