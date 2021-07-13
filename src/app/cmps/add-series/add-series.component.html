@@ -3,7 +3,12 @@
     <form #form="ngForm"(ngSubmit)="submitForm(form.value)" class="example-form">
         <mat-form-field class="example-full-width" hideRequiredMarker>
             <mat-label>Choose series</mat-label>
-            <input  matInput [ngModel]="seriesName" required name="seriesName" placeholder="Write the name of a series">
+            <input (input)="searchSeries(control.value)" [formControl]="control" [matAutocomplete]="auto" matInput [ngModel]="seriesName" required name="seriesName" placeholder="Write the name of a series">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+                  {{street}}
+                </mat-option>
+              </mat-autocomplete>
         </mat-form-field>
         <div mat-dialog-actions>
             <button type="submit" mat-stroked-button mat-stroked-button  color="primary" >Add</button>

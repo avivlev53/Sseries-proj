@@ -21,6 +21,9 @@ import { EditTvShowEpisodeComponent } from './cmps/edit-tv-show-episode/edit-tv-
 import {MatSelectModule} from '@angular/material/select';
 import { DeleteSeriesComponent } from './cmps/delete-series/delete-series.component';
 import { NgEventBus } from 'ng-event-bus';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { LoginComponent } from './cmps/login/login.component';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -36,6 +39,7 @@ import { NgEventBus } from 'ng-event-bus';
     ClickStopPropagation,
     EditTvShowEpisodeComponent,
     DeleteSeriesComponent,
+    LoginComponent,
     
   ],
  
@@ -50,7 +54,9 @@ import { NgEventBus } from 'ng-event-bus';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatIconModule
   ],
   providers: [
     NgEventBus,
