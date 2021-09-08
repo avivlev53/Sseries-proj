@@ -9,6 +9,9 @@
         & .add-series{
            margin-right: 10px;
         }
+        & .delete-series{
+           margin-right: 10px;
+        }
     }
     i{
         color: #fff;
@@ -35,4 +38,39 @@
     & a.flex {
         align-items: center;
     }
+}
+@media only screen and (max-width: 500px) {
+    .main-nav{
+        div{
+             & .add-series{
+            margin-right: 2px;
+            }
+            & .delete-series{
+            margin-right: 2px;
+            }
+        }
+    }
+    .paging{
+        & *:not(:last-child){
+            margin-right: 5px;
+        }
+    }
+}
+@media only screen and (max-width: 440px) {
+    .main-nav{
+        flex-direction:column-reverse;
+        // flex-wrap: wrap-reverse;
+        div{
+            width: 100%;
+            display: flex;
+            flex-direction:row;
+            justify-content: space-around;
+            
+            &:nth-child(2){
+                justify-content: center;
+            }
+        }
+    }
+
+
 }

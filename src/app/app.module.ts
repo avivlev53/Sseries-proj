@@ -24,6 +24,7 @@ import { NgEventBus } from 'ng-event-bus';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { LoginComponent } from './cmps/login/login.component';
 import {MatIconModule} from '@angular/material/icon';
+import { InfoComponent } from './cmps/info/info.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {MatIconModule} from '@angular/material/icon';
     EditTvShowEpisodeComponent,
     DeleteSeriesComponent,
     LoginComponent,
+    InfoComponent,
     
   ],
  

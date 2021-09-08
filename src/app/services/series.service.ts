@@ -1,17 +1,19 @@
 import { Injectable } from "@angular/core";
-// import { Observable, throwError } from "rxjs";
-// import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
-// import { catchError, map } from "rxjs/operators";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { CalendarService } from "./calendar.service";
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorMsgComponent } from "../cmps/error-msg/error-msg.component";
 import { UtilService } from '../services/util-service'
-import{HttpService} from '../services/http.service'
-// Set the http options
-// const httpOptions = {
-//     headers: new HttpHeaders({ "Content-Type": "application/json", "Authorization": "c31z" })
-// };
 
+
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer 70seuvwxujxp6o8t6yjs7nmvsor4q1',
+      'Client-ID': 'lizc8ir800t1td4mjslkh08r1m8x51'
+    })
+  }
 @Injectable({
     providedIn: "root"
 })
@@ -26,18 +28,19 @@ export class SeriesService {
     };
     newSeries;
     deletedEpisode=[]
-    constructor(public httpService:HttpService, private calendarService: CalendarService, public dialog: MatDialog, public utilService: UtilService) { }
+    constructor(private http: HttpClient, private calendarService: CalendarService, public dialog: MatDialog, public utilService: UtilService) { }
     public addSeriesToCalendar({ seriesName }) {
         const fixedSeriesName = seriesName.split(' ').join('-')
-        this.httpService.get(`https://www.episodate.com/api/show-details?q=${fixedSeriesName}`)
+        this.http.get(`https://www.episodate.com/api/show-details?q=${fixedSeriesName}`,httpOptions)
             .subscribe(
                 data => {
-                    this.newSeries = data.tvShow
-                    if (!data.tvShow.name || !data.tvShow.episodes.length) {
+                    // console.log('data',{...data})
+                    this.newSeries = {...data}
+                    if (!this.newSeries.tvShow.name || !this.newSeries.tvShow.episodes.length) {
                         this.dialog.open(ErrorMsgComponent);
                         return
                     }else {
-                        this._arrangeSeriesDefault(data.tvShow)
+                        this._arrangeSeriesDefault(this.newSeries.tvShow)
                         this.utilService.saveToStorage('addSeriesToList',this.seriesDefault)
                         this.calendarService.addSeriesToList()
                     }
@@ -47,23 +50,7 @@ export class SeriesService {
                 }
             );
     }
-    public async searchSeries(seriesName){
-        // console.log("🚀seriesName", seriesName)
-        // let series;
-        return this.httpService.get (`https://www.episodate.com/api/search?q=${seriesName}&page=1`)
-        .subscribe(
-            data=>{
-                const seriesNames=data.tv_shows.map(series=>series.name)
-                // console.log('seriesNames',seriesNames)
-                // series=JSON.parse(JSON.stringify(seriesNames)) 
-                // console.log('series',series)
-                return seriesNames
-            }
-        )
 
-        // console.log('series',series)
-        // return series
-    }
     public changeStarOnEpisode(seriesName, seasonNum, episodeNum) {
         let isLoved=null
         const seriesList = this.utilService.loadFromStorage('series')
@@ -79,6 +66,7 @@ export class SeriesService {
             }
             return series
         })
+        this.calendarService.changeStarOnEpisode(seriesName, seasonNum, episodeNum)
         this.utilService.saveToStorage('series', newSeriesList)
         return isLoved
     }
@@ -105,20 +93,7 @@ export class SeriesService {
         })
         this.utilService.saveToStorage('series', newSeriesList)
     }
-    // public addNoteToEpisode(episodeInfo,noteTxt){
-    //     console.log('episodeInfo',episodeInfo,'noteTxt',noteTxt)
-        // // להוסיף נוטס שיהיו גם בלוקל סטורג
-        // const seriesList = this.utilService.loadFromStorage('series')
-        // const newSeriesList = seriesList.map(series=>{
-        //     if (series.name===episodeInfo.name){
-        //         for (let i =0; i<series.episodes.length;i++){
-        //             if (series.episodes[i].episode===episodeInfo.episodeInfo.episode &&series.episodes[i].season===episodeInfo.episodeInfo.season){
-        //                 console.log('series.episodes[i]',series.episodes[i])
-        //             }
-        //         }
-        //     }
-        // })
-    // }
+    
     public getSeriesNameList(){
         const seriesList = this.utilService.loadFromStorage('series')
         const newSeriesList = seriesList.map(series=>series.name)
@@ -141,7 +116,7 @@ export class SeriesService {
         for (let i = 0; i < this.seriesDefault.episodes.length; i++) {
             this.seriesDefault.episodes[i].isFavorite = false
         }
-        console.log(this.seriesDefault)
+        // console.log(this.seriesDefault)
     }
 
 }

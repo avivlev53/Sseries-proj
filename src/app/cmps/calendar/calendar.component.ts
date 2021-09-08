@@ -23,13 +23,16 @@ export class CalendarComponent implements OnInit {
   clickedDay={i:'',j:''}
 
   ngOnInit(): void {
+    this.seriesService.addSeriesToCalendar({seriesName: 'lucifer'})
+    this.seriesService.addSeriesToCalendar({seriesName: 'La Casa de Papel'})
+    this.seriesService.addSeriesToCalendar({seriesName: 'The Good Doctor'})
   }
   ngAfterContentInit(){
     this.backgroundUrl=`background-image: linear-gradient(#34343440, #343434),url(${this.calendarService.setBackgroundImg()});`
   }
   
   showDayDetails(dayInfo,indexI,indexJ){
-    console.log('dayInfo',dayInfo)
+    // console.log('dayInfo',dayInfo)
     if(this.dayInfo=dayInfo && this.clickedDay.i===indexI&&this.clickedDay.j===indexJ){
       this.dayInfo=''
       this.clickedDay.i=''

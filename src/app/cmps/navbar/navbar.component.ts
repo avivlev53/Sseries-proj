@@ -6,6 +6,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
 import { SeriesService } from 'src/app/services/series.service';
 import { AddSeriesComponent } from '../add-series/add-series.component';
 import { DeleteSeriesComponent } from '../delete-series/delete-series.component';
+import { InfoComponent } from '../info/info.component';
 
 @Component({
   selector: 'app-navbar',
@@ -39,6 +40,9 @@ export class NavbarComponent implements OnInit {
         this.calendarService.deleteSeriesFromCalendar(result)
       }
     });
+  }
+  infoSeries(){
+    const dialogRef = this.dialog.open(InfoComponent);
   }
   get monthToShow() {
     this.calendar$ = this.calendarService.calendar$

@@ -134,6 +134,24 @@ export class CalendarService {
     }
     this._calendar$.next(JSON.parse(JSON.stringify(calendar)))
   }
+  public changeStarOnEpisode(seriesName, seasonNum, episodeNum){
+    console.log('seriesName',seriesName,'seasonNum', seasonNum,'episodeNum', episodeNum)
+    let calendar = this._calendar$.getValue();
+    for (let i = 0; i < calendar.length; i++) {
+      let week = calendar[i]
+      for (let j = 0; j < calendar[0].length; j++) {
+        let day = week[j]
+        if (day.tvShows.length){
+          let editTvShow=day.tvShows.map(tvShow=>{
+            if(tvShow.name===seriesName && tvShow.episodeInfo.season===seasonNum && tvShow.episodeInfo.episode===episodeNum ){
+              tvShow.episodeInfo.isFavorite=!tvShow.episodeInfo.isFavorite
+            }
+          })
+        }
+      }
+    }
+    this._calendar$.next(JSON.parse(JSON.stringify(calendar)))
+  }
   public setBackgroundImg() {
     let calendar = this._calendar$.getValue();
     for (let i = 0; i < calendar.length; i++) {
